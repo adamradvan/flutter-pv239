@@ -1,16 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/state/app_state.dart';
 import 'package:homework03/fontcreator/font_card.dart';
 import 'package:homework03/fontcreator/form/font_creation.dart';
 import 'package:homework03/fontcreator/helper/font_dto.dart';
+import 'package:homework03/fontcreator/state/app_state.dart';
+import 'package:homework03/fontcreator/state/form_page.dart';
 
 class FontCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppState(
-      streamController: StreamController<FontDataDto>(),
+      controller: StreamController<FontDataDto>(),
       child: MaterialApp(
         title: 'Font Creator',
         theme: ThemeData.from(colorScheme: ColorScheme.dark()),
@@ -32,7 +33,12 @@ class HomeScreen extends StatelessWidget {
         label: Text("Add Font"),
         icon: Icon(Icons.add),
         onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (BuildContext context) => FontPage()),
+          MaterialPageRoute(
+            builder: (BuildContext context) => FormStateProvider(
+              controller: StreamController<FontDataDto>(),
+              child: FontPage(),
+            ),
+          ),
         ),
       ),
     );
@@ -49,7 +55,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget _createBody(BuildContext context) {
     return StreamBuilder(
-        stream: AppState.of(context).streamController.stream,
+        stream: AppState.of(context).controller.stream,
         builder: (context, AsyncSnapshot<FontDataDto?> snapshot) {
           List<FontDataDto> dtos = AppState.of(context).dtos;
           if (snapshot.hasError) {

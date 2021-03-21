@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:homework03/fontcreator/state/form_page.dart';
 
-class FontSlider extends StatefulWidget {
-  final ValueChanged<double> callback;
-
-  const FontSlider({Key? key, required this.callback}) : super(key: key);
-
-  @override
-  _FontSliderState createState() => _FontSliderState();
-}
-
-class _FontSliderState extends State<FontSlider> {
-  double _currentSize = 8;
-
+class FontSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,16 +13,14 @@ class _FontSliderState extends State<FontSlider> {
         ),
         Slider(
           activeColor: Theme.of(context).colorScheme.secondary,
-          value: _currentSize,
+          value: FormStateProvider.of(context).getSize(),
           min: 8,
           max: 30,
           divisions: 11,
-          label: _currentSize.round().toString(),
-          onChanged: (double value) => setState(() {
-            _currentSize = value;
-            widget.callback(_currentSize);
-          }),
-        )
+          label: FormStateProvider.of(context).getSize().round().toString(),
+          onChanged: (double value) =>
+              FormStateProvider.of(context).size(value),
+        ),
       ],
     );
   }

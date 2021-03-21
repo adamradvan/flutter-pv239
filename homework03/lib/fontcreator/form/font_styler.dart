@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:homework03/fontcreator/state/form_page.dart';
 
-class FontStyler extends StatefulWidget {
-  final ValueChanged<FontWeight?> callback;
-
-  const FontStyler({Key? key, required this.callback}) : super(key: key);
-
-  @override
-  _FontStylerState createState() => _FontStylerState();
-}
-
-class _FontStylerState extends State<FontStyler> {
-  FontWeight? _weight = FontWeight.normal;
-
+class FontStyler extends StatelessWidget {
   Widget _createRadioTile(
     BuildContext context,
     String title,
@@ -21,11 +11,11 @@ class _FontStylerState extends State<FontStyler> {
       activeColor: Theme.of(context).colorScheme.secondary,
       title: Text(title),
       value: fontWeight,
-      groupValue: _weight,
-      onChanged: (FontWeight? value) => setState(() {
-        _weight = value;
-        widget.callback(_weight);
-      }),
+      groupValue: FormStateProvider.of(context).getWeight(),
+      onChanged: (FontWeight? value) {
+        if (value == null) return;
+        FormStateProvider.of(context).weight(value);
+      },
     );
   }
 

@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import '../helper/font_dto.dart';
 
 class AppState extends InheritedWidget {
-  final StreamController<FontDataDto> streamController;
+  final StreamController<FontDataDto> controller;
+  final FontDataDto current = FontDataDto();
   final List<FontDataDto> dtos = [];
 
-  AppState({required this.streamController, required child})
-      : super(child: child);
+  AppState({required this.controller, required child}) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
@@ -23,7 +23,7 @@ class AppState extends InheritedWidget {
 
   void addFont(FontDataDto dto) {
     dtos.add(dto);
-    streamController.add(dto);
+    controller.add(dto);
   }
 
   void removeFont(FontDataDto dto) {
@@ -33,6 +33,6 @@ class AppState extends InheritedWidget {
     dtos.remove(dto);
     print("After: " +
         dtos.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
-    streamController.add(dto);
+    controller.add(dto);
   }
 }
