@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/constants.dart';
+
+import 'constants.dart';
 
 class FontDataDto {
   final String text = AppConstants.DEFAULT_MESSAGE;

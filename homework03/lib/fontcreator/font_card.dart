@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/font_dto.dart';
+import 'package:homework03/fontcreator/helper/font_dto.dart';
 
 class FontCard extends StatelessWidget {
   final FontDataDto dto;

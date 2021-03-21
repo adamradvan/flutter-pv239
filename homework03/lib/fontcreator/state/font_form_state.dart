@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 
-import 'font_dto.dart';
+import '../helper/font_dto.dart';
 
 class FontFormState extends InheritedWidget {
   final StreamController<FontDataDto> controller;

@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/app_state.dart';
+import 'package:homework03/fontcreator/state/app_state.dart';
 import 'package:homework03/fontcreator/font_card.dart';
-import 'package:homework03/fontcreator/font_creation.dart';
-import 'package:homework03/fontcreator/font_dto.dart';
+import 'package:homework03/fontcreator/form/font_creation.dart';
+import 'package:homework03/fontcreator/helper/font_dto.dart';
 
 class FontCreator extends StatelessWidget {
   @override

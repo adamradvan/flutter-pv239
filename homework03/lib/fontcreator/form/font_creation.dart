@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/app_state.dart';
-import 'package:homework03/fontcreator/font_dto.dart';
-import 'package:homework03/fontcreator/font_slider.dart';
-import 'package:homework03/fontcreator/font_styler.dart';
+import 'package:homework03/fontcreator/form/font_slider.dart';
+import 'package:homework03/fontcreator/form/font_styler.dart';
+import 'package:homework03/fontcreator/helper/font_dto.dart';
+import 'package:homework03/fontcreator/state/app_state.dart';
 
-import 'constants.dart';
+import '../helper/constants.dart';
 
 class FontPageStateless extends StatelessWidget {
   @override
