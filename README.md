@@ -11,3 +11,9 @@
   <img src="https://user-images.githubusercontent.com/47076392/111082081-ab968b00-8506-11eb-925b-f6e6ea323847.png" width="200" height="320" />
   <img src="https://user-images.githubusercontent.com/47076392/111082085-b3eec600-8506-11eb-898f-945cc73371c0.png" width="200" height="320" />
 </p>
+
+## Homework 03
+#### Inherited Widgets, streams
+
+
+App's UI and functionality is the same as in *Homework02*. **Stateful** widgets were dropped in favor of **Inherited** widgets and streams.
