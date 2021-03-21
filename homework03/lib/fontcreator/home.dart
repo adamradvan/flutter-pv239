@@ -1,81 +1,72 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:homework03/fontcreator/font_card.dart';
 import 'package:homework03/fontcreator/font_creation.dart';
 import 'package:homework03/fontcreator/font_dto.dart';
+import 'package:homework03/fontcreator/state_holder.dart';
 
 class FontCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Font Creator',
-      theme: ThemeData.from(colorScheme: ColorScheme.dark()),
-      home: HomeScreen(),
+    return AppState(
+      streamController: StreamController<FontDataDto>(),
+      child: MaterialApp(
+        title: 'Font Creator',
+        theme: ThemeData.from(colorScheme: ColorScheme.dark()),
+        home: HomeScreen(),
+      ),
     );
   }
 }
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  List<FontDataDto> _fontDtos = [];
-
-  void _onPressedButton() async {
-    final FontDataDto? dto = await Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) => FontPage(),
-      ),
-    );
-    if (dto != null) {
-      setState(() => _fontDtos = List.from(_fontDtos)..add(dto));
-    }
-  }
-
-  void _removeCard(int index) {
-    setState(() {
-      _fontDtos = List.from(_fontDtos)..removeAt(index);
-    });
-  }
-
-  Widget _createPlaceholder() {
-    return Center(
-      child: Text(
-        'Please create a font.',
-        style: Theme.of(context).textTheme.headline5,
-      ),
-    );
-  }
-
-  Widget _createBody() {
-    if (_fontDtos.isEmpty) return _createPlaceholder();
-    return ListView(
-        children: _fontDtos
-            .asMap() // converting to Map because List.map() does not provide index
-            .map(
-              (index, value) => MapEntry(
-                index,
-                FontCard(dto: value, deleteCallback: () => _removeCard(index)),
-              ),
-            )
-            .values // additional handling to convert from map to list
-            .cast<Widget>()
-            .toList());
-  }
-
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Font Creator"),
       ),
-      body: _createBody(),
+      body: _createBody(context),
       floatingActionButton: FloatingActionButton.extended(
         label: Text("Add Font"),
         icon: Icon(Icons.add),
-        onPressed: _onPressedButton,
+        onPressed: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (BuildContext context) => FontPage()),
+        ),
       ),
     );
+  }
+
+  Widget _createPlaceholder(BuildContext context, String textToDisplay) {
+    return Center(
+      child: Text(
+        textToDisplay,
+        style: Theme.of(context).textTheme.headline5,
+      ),
+    );
+  }
+
+  Widget _createBody(BuildContext context) {
+    return StreamBuilder(
+        stream: AppState.of(context).streamController.stream,
+        builder: (context, AsyncSnapshot<FontDataDto?> snapshot) {
+          List<FontDataDto> dtos = AppState.of(context).dtos;
+          if (snapshot.hasError) {
+            return _createPlaceholder(context, "Data stream has error.");
+          }
+          if (dtos.isEmpty) {
+            return _createPlaceholder(context, "Please create a font.");
+          }
+
+          return ListView(
+              children: dtos
+                  .map((value) => FontCard(
+                        dto: value,
+                        deleteCallback: () =>
+                            AppState.of(context).removeFont(value),
+                      ))
+                  .toList());
+        });
   }
 }

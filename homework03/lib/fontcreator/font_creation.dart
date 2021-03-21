@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:homework03/fontcreator/font_dto.dart';
 import 'package:homework03/fontcreator/font_slider.dart';
 import 'package:homework03/fontcreator/font_styler.dart';
+import 'package:homework03/fontcreator/state_holder.dart';
 
 class FontPage extends StatefulWidget {
   @override
@@ -52,12 +53,14 @@ class _FontPageState extends State<FontPage> {
     return Scaffold(
       appBar: AppBar(title: Text("Create Your Font!")),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.check_circle_outline_rounded),
-        onPressed: () => Navigator.of(context).pop(
-          FontDataDto(
-              text: displayedText, weight: _weight!, size: _currentSize),
-        ),
-      ),
+          child: Icon(Icons.check_circle_outline_rounded),
+          onPressed: () {
+            AppState.of(context).addFont(
+              FontDataDto(
+                  text: displayedText, weight: _weight!, size: _currentSize),
+            );
+            Navigator.of(context).pop();
+          }),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
