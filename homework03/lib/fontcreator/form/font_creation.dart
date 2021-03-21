@@ -38,17 +38,7 @@ class FontPage extends StatelessWidget {
     );
   }
 
-  Widget _createMutators() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        FontSlider(),
-        FontStyler(),
-      ],
-    );
-  }
-
-  FloatingActionButton _createButton(BuildContext context) {
+  Widget _createButton(BuildContext context) {
     return FloatingActionButton(
         child: Icon(Icons.check_circle_outline_rounded),
         onPressed: () {
@@ -70,6 +60,16 @@ class FontPage extends StatelessWidget {
           fontWeight: dto.weight,
         ),
       ),
+    );
+  }
+
+  Widget _createMutators() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FontSlider(),
+        FontStyler(),
+      ],
     );
   }
 }

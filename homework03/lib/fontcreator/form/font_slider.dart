@@ -18,7 +18,8 @@ class FontSlider extends StatelessWidget {
           max: 30,
           divisions: 11,
           label: FontFormProvider.of(context).getSize().round().toString(),
-          onChanged: (double value) => FontFormProvider.of(context).size(value),
+          onChanged: (double value) =>
+              FontFormProvider.of(context).newFontSize(value),
         ),
       ],
     );

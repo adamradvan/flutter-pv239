@@ -8,8 +8,10 @@ class FontFormProvider extends InheritedWidget {
   final StreamController<FontDataDto> controller;
   final FontDataDto current = FontDataDto();
 
-  FontFormProvider({required this.controller, required child})
-      : super(child: child);
+  FontFormProvider({
+    required this.controller,
+    required child,
+  }) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
@@ -21,6 +23,16 @@ class FontFormProvider extends InheritedWidget {
     return result!;
   }
 
+  void newFontWeight(FontWeight weight) {
+    current.weight = weight;
+    _sendEventToStream();
+  }
+
+  void newFontSize(double size) {
+    current.size = size;
+    _sendEventToStream();
+  }
+
   FontWeight getWeight() {
     return current.weight;
   }
@@ -29,15 +41,7 @@ class FontFormProvider extends InheritedWidget {
     return current.size;
   }
 
-  void weight(FontWeight weight) {
-    print("Set weight to $weight");
-    current.weight = weight;
-    controller.add(current);
-  }
-
-  void size(double size) {
-    print("Set size to $size");
-    current.size = size;
+  void _sendEventToStream() {
     controller.add(current);
   }
 }

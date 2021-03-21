@@ -60,7 +60,7 @@ class HomeScreen extends StatelessWidget {
           if (snapshot.hasError) {
             return _createPlaceholder(context, "Data stream has error.");
           }
-          if (!snapshot.hasData) {
+          if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return _createPlaceholder(context, "Please create a font.");
           }
 

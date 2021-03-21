@@ -8,8 +8,10 @@ class CreatedFontsProvider extends InheritedWidget {
   final StreamController<List<FontDataDto>> controller;
   final List<FontDataDto> fonts = [];
 
-  CreatedFontsProvider({required this.controller, required child})
-      : super(child: child);
+  CreatedFontsProvider({
+    required this.controller,
+    required child,
+  }) : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
@@ -23,20 +25,15 @@ class CreatedFontsProvider extends InheritedWidget {
 
   void addFont(FontDataDto dto) {
     fonts.add(dto);
-    sendEventToStream();
+    _sendEventToStream();
   }
 
   void removeFont(FontDataDto dto) {
-    print("Removing from list");
-    print("Before: " +
-        fonts.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
     fonts.remove(dto);
-    print("After: " +
-        fonts.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
-    sendEventToStream();
+    _sendEventToStream();
   }
 
-  void sendEventToStream() {
+  void _sendEventToStream() {
     controller.add(fonts);
   }
 }
