@@ -12,8 +12,8 @@ class FontPage extends StatelessWidget {
       appBar: AppBar(title: Text("Create Your Font!")),
       floatingActionButton: _createButton(context),
       body: StreamBuilder(
-        stream: FormStateProvider.of(context).controller.stream,
-        initialData: FormStateProvider.of(context).current,
+        stream: FontFormProvider.of(context).controller.stream,
+        initialData: FontFormProvider.of(context).current,
         builder: (context, AsyncSnapshot<FontDataDto?> snapshot) {
           if (snapshot.hasError) {
             return Center(child: Text("Data stream has error."));
@@ -52,10 +52,10 @@ class FontPage extends StatelessWidget {
     return FloatingActionButton(
         child: Icon(Icons.check_circle_outline_rounded),
         onPressed: () {
-          AppState.of(context).addFont(
+          CreatedFontsProvider.of(context).addFont(
             FontDataDto.from(
-                weight: FormStateProvider.of(context).getWeight(),
-                size: FormStateProvider.of(context).getSize()),
+                weight: FontFormProvider.of(context).getWeight(),
+                size: FontFormProvider.of(context).getSize()),
           );
           Navigator.of(context).pop();
         });

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:homework03/fontcreator/font_card.dart';
+import 'package:homework03/fontcreator/home/font_card.dart';
 import 'package:homework03/fontcreator/form/font_creation.dart';
 import 'package:homework03/fontcreator/helper/font_dto.dart';
 import 'package:homework03/fontcreator/state/app_state.dart';
@@ -10,8 +10,8 @@ import 'package:homework03/fontcreator/state/form_page.dart';
 class FontCreator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return AppState(
-      controller: StreamController<FontDataDto>(),
+    return CreatedFontsProvider(
+      controller: StreamController<List<FontDataDto>>(),
       child: MaterialApp(
         title: 'Font Creator',
         theme: ThemeData.from(colorScheme: ColorScheme.dark()),
@@ -34,7 +34,7 @@ class HomeScreen extends StatelessWidget {
         icon: Icon(Icons.add),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (BuildContext context) => FormStateProvider(
+            builder: (BuildContext context) => FontFormProvider(
               controller: StreamController<FontDataDto>(),
               child: FontPage(),
             ),
@@ -55,22 +55,21 @@ class HomeScreen extends StatelessWidget {
 
   Widget _createBody(BuildContext context) {
     return StreamBuilder(
-        stream: AppState.of(context).controller.stream,
-        builder: (context, AsyncSnapshot<FontDataDto?> snapshot) {
-          List<FontDataDto> dtos = AppState.of(context).dtos;
+        stream: CreatedFontsProvider.of(context).controller.stream,
+        builder: (context, AsyncSnapshot<List<FontDataDto>?> snapshot) {
           if (snapshot.hasError) {
             return _createPlaceholder(context, "Data stream has error.");
           }
-          if (dtos.isEmpty) {
+          if (!snapshot.hasData) {
             return _createPlaceholder(context, "Please create a font.");
           }
 
           return ListView(
-              children: dtos
+              children: snapshot.data!
                   .map((value) => FontCard(
                         dto: value,
                         deleteCallback: () =>
-                            AppState.of(context).removeFont(value),
+                            CreatedFontsProvider.of(context).removeFont(value),
                       ))
                   .toList());
         });

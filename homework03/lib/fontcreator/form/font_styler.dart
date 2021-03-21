@@ -11,10 +11,10 @@ class FontStyler extends StatelessWidget {
       activeColor: Theme.of(context).colorScheme.secondary,
       title: Text(title),
       value: fontWeight,
-      groupValue: FormStateProvider.of(context).getWeight(),
+      groupValue: FontFormProvider.of(context).getWeight(),
       onChanged: (FontWeight? value) {
         if (value == null) return;
-        FormStateProvider.of(context).weight(value);
+        FontFormProvider.of(context).weight(value);
       },
     );
   }

@@ -4,35 +4,39 @@ import 'package:flutter/material.dart';
 
 import '../helper/font_dto.dart';
 
-class AppState extends InheritedWidget {
-  final StreamController<FontDataDto> controller;
-  final FontDataDto current = FontDataDto();
-  final List<FontDataDto> dtos = [];
+class CreatedFontsProvider extends InheritedWidget {
+  final StreamController<List<FontDataDto>> controller;
+  final List<FontDataDto> fonts = [];
 
-  AppState({required this.controller, required child}) : super(child: child);
+  CreatedFontsProvider({required this.controller, required child})
+      : super(child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 
-  static AppState of(BuildContext context) {
-    final AppState? result =
-        context.dependOnInheritedWidgetOfExactType<AppState>();
+  static CreatedFontsProvider of(BuildContext context) {
+    final CreatedFontsProvider? result =
+        context.dependOnInheritedWidgetOfExactType<CreatedFontsProvider>();
     assert(result != null, "No AppState found in context");
     return result!;
   }
 
   void addFont(FontDataDto dto) {
-    dtos.add(dto);
-    controller.add(dto);
+    fonts.add(dto);
+    sendEventToStream();
   }
 
   void removeFont(FontDataDto dto) {
     print("Removing from list");
     print("Before: " +
-        dtos.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
-    dtos.remove(dto);
+        fonts.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
+    fonts.remove(dto);
     print("After: " +
-        dtos.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
-    controller.add(dto);
+        fonts.map((e) => "Size:${e.size}, Weight:${e.weight}").toString());
+    sendEventToStream();
+  }
+
+  void sendEventToStream() {
+    controller.add(fonts);
   }
 }

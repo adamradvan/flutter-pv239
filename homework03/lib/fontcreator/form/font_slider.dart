@@ -13,13 +13,12 @@ class FontSlider extends StatelessWidget {
         ),
         Slider(
           activeColor: Theme.of(context).colorScheme.secondary,
-          value: FormStateProvider.of(context).getSize(),
+          value: FontFormProvider.of(context).getSize(),
           min: 8,
           max: 30,
           divisions: 11,
-          label: FormStateProvider.of(context).getSize().round().toString(),
-          onChanged: (double value) =>
-              FormStateProvider.of(context).size(value),
+          label: FontFormProvider.of(context).getSize().round().toString(),
+          onChanged: (double value) => FontFormProvider.of(context).size(value),
         ),
       ],
     );
