@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:homework03/fontcreator/constants.dart';
 
-@immutable
 class FontDataDto {
-  final String text;
-  final FontWeight weight;
-  final double size;
+  final String text = AppConstants.DEFAULT_MESSAGE;
+  FontWeight weight = AppConstants.DEFAULT_FONT_WEIGHT;
+  double size = AppConstants.DEFAULT_FONT_SIZE;
 
-  FontDataDto({required this.text, required this.weight, required this.size});
+  FontDataDto();
+
+  static FontDataDto from({required FontWeight weight, required double size}) {
+    FontDataDto dto = FontDataDto();
+    dto.weight = weight;
+    dto.size = size;
+    return dto;
+  }
 }
