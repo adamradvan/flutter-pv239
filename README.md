@@ -23,6 +23,13 @@ App's UI and functionality is the same as in *Homework02*. **Stateful** widgets 
 
 Simple app that creates notes with name and text. 
 App has 3 pages:
-  - Note listing - show only note's name
-  - Note form - create a note
-  - Note detail - show selected note on separate page
+  - **Note form** - create a note
+  - **Note listing** - show only note's name
+  - **Note detail** - show selected note on separate page
+
+<p>
+  <img src="https://user-images.githubusercontent.com/47076392/114091415-f4005900-98b8-11eb-87aa-bea1534cfd2e.png" width="200" height="320" />
+  <img src="https://user-images.githubusercontent.com/47076392/114091399-f06cd200-98b8-11eb-9905-17e72eb7b7ea.png" width="200" height="320" />
+  <img src="https://user-images.githubusercontent.com/47076392/114091560-2316ca80-98b9-11eb-914c-cab9c01f0210.png" width="200" height="320" />
+</p>
+
